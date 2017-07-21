@@ -1,6 +1,6 @@
 # Your Portfolio for Class 10 - Functional Programming!
 
-Scopes and closures and IIFE's, oh my! :grimacing:
+Scopes and functional programming and IIFE's, oh my!
 
 Apply some functional programming concepts to your portfolio codebase.
 
