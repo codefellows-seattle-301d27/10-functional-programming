@@ -38,11 +38,20 @@ var app = app || {};
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
+    // TODO: DONE Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
     // is the transformation of one collection into another. Remember that we can set variables equal to the result
     // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
     // There is no need to push to anything.
-
+    Article.all = rows.map(function (row){
+      return {
+        title: row.title,
+        category: row.category,
+        author: row.author,
+        authorUrl: row.authorUrl,
+        publishedOn: row.publishedOn,
+        body: row.body
+      }
+    })
     /* OLD forEach():
     rawData.forEach(function(ele) {
     Article.all.push(new Article(ele));
@@ -129,6 +138,7 @@ var app = app || {};
     .then(console.log)
     .then(callback);
   };
+  //Logic Check
   module.newArticle = new Article();
 //end of IIFE
 })(app)
