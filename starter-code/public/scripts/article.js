@@ -3,50 +3,51 @@ var app = app || {};
 
 // REVIEW: Check out all of the functions that we've cleaned up with arrow function syntax.
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
+// DONE TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declarations, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
-function Article(rawDataObj) {
-  /* REVIEW: In lab 8, we explored a lot of new functionality going on here. Let's re-examine
-  the concept of context.
-  Normally, "this" inside of a constructor function refers to the newly instantiated object.
-  However, in the function we're passing to forEach, "this" would normally refer to "undefined"
-  in strict mode. As a result, we had to pass a second argument to forEach to make sure our "this"
-  was still referring to our instantiated object.
-  One of the primary purposes of lexical arrow functions, besides cleaning up syntax to use fewer
-  lines of code, is to also preserve context. That means that when you declare a function using
-  lexical arrows, "this" inside the function will still be the same "this" as it was outside
-  the function.
-  As a result, we no longer have to pass in the optional "this" argument to forEach!*/
-  Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
-}
+(function (module) {
+  function Article(rawDataObj) {
+    /* REVIEW: In lab 8, we explored a lot of new functionality going on here. Let's re-examine
+    the concept of context.
+    Normally, "this" inside of a constructor function refers to the newly instantiated object.
+    However, in the function we're passing to forEach, "this" would normally refer to "undefined"
+    in strict mode. As a result, we had to pass a second argument to forEach to make sure our "this"
+    was still referring to our instantiated object.
+    One of the primary purposes of lexical arrow functions, besides cleaning up syntax to use fewer
+    lines of code, is to also preserve context. That means that when you declare a function using
+    lexical arrows, "this" inside the function will still be the same "this" as it was outside
+    the function.
+    As a result, we no longer have to pass in the optional "this" argument to forEach!*/
+    Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
+  }
 
-Article.all = [];
+  Article.all = [];
 
-Article.prototype.toHtml = function() {
-  var template = Handlebars.compile($('#article-template').text());
+  Article.prototype.toHtml = function() {
+    var template = Handlebars.compile($('#article-template').text());
 
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
-  this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
-  this.body = marked(this.body);
+    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+    this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
+    this.body = marked(this.body);
 
-  return template(this);
-};
+    return template(this);
+  };
 
-Article.loadAll = rows => {
-  rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
+  Article.loadAll = rows => {
+    rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-  // TODO: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
-  // is the transformation of one collection into another. Remember that we can set variables equal to the result
-  // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
-  // There is no need to push to anything.
+    // TODO: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
+    // is the transformation of one collection into another. Remember that we can set variables equal to the result
+    // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
+    // There is no need to push to anything.
 
-  /* OLD forEach():
-  rawData.forEach(function(ele) {
-  Article.all.push(new Article(ele));
-});
-*/
+    /* OLD forEach():
+    rawData.forEach(function(ele) {
+    Article.all.push(new Article(ele));
+  });
+  */
 
 };
 
@@ -90,8 +91,8 @@ Article.truncateTable = callback => {
     method: 'DELETE',
   })
   .then(console.log) // REVIEW: Check out this clean syntax for just passing 'assumed' data into a named function!
-                     // The reason we can do this has to do with the way Promise.prototype.then works. It's a little
-                     // outside the scope of 301 material, but feel free to research!
+  // The reason we can do this has to do with the way Promise.prototype.then works. It's a little
+  // outside the scope of 301 material, but feel free to research!
   .then(callback);
 };
 
@@ -128,3 +129,4 @@ Article.prototype.updateRecord = function(callback) {
   .then(console.log)
   .then(callback);
 };
+})();
