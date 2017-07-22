@@ -8,7 +8,7 @@ var app = app || {};
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
 
-(function(module)
+(function(module){
   function Article(rawDataObj) {
   /* REVIEW: In lab 8, we explored a lot of new functionality going on here. Let's re-examine
   the concept of context.
@@ -21,7 +21,7 @@ var app = app || {};
   lexical arrows, "this" inside the function will still be the same "this" as it was outside
   the function.
   As a result, we no longer have to pass in the optional "this" argument to forEach!*/
-  Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
+    Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
   }
 
   Article.all = [];
@@ -39,17 +39,26 @@ var app = app || {};
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
+    // DONE: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
     // is the transformation of one collection into another. Remember that we can set variables equal to the result
     // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
     // There is no need to push to anything.
-
+    // Estimated 20 min | Actual 17 min
     /* OLD forEach():
     rawData.forEach(function(ele) {
     Article.all.push(new Article(ele));
   });
   */
-
+    rows.map(function(row){
+      return {
+        title: row.title,
+        category: row.category,
+        author: row.author,
+        authorUrl: row.authorUrl,
+        publishedOn: row.publishedOn,
+        body: row.body
+      }
+    });
   };
 
   Article.fetchAll = callback => {
@@ -132,4 +141,4 @@ var app = app || {};
   };
 
   module.Article = Article;
-)(app);
+})(app);
