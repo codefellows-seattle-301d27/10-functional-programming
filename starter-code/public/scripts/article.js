@@ -68,10 +68,14 @@ var app = app || {};
   };
 
   // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
-  //    Estimated time:
-  //    Actual time:
+  //    Estimated time: 30 minutes
+  //    Actual time: 20 minutes
   Article.numWordsAll = () => {
-    return Article.all.map().reduce()
+    return Article.all.map(function(arti){
+      return arti.body.length;
+    }).reduce(function(accumulator, bodies) {
+      return accumulator + bodies;
+    }, 0)
   };
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
