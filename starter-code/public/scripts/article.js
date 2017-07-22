@@ -67,18 +67,25 @@ var app = app || {};
   Article.numWordsAll = () => {
     // start with an array with Article.all and return and array of article bodies
     // add all arrays together
-    let totalWords = (Article.all.map(function (arti) {
-      return arti.body
+    return (Article.all.map(function (arti) {
+      return arti.body;
     })).reduce(function (allText, newText) {
       return allText + newText;
-    }, '')
-    return totalWords[0].split(' ').length;
+    }, '').split(' ').length;
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
+  // DONE TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(function(arti) {
+      return arti.author;
+    }).reduce(function(allAuthors, nextAuthor) {
+      if (!allAuthors.includes(nextAuthor)) {
+        return allAuthors.concat(nextAuthor);
+      } else {
+        return allAuthors;
+      }
+    }, []);
   };
 
   Article.numWordsByAuthor = () => {
