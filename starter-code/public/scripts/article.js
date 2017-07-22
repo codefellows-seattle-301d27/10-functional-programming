@@ -104,7 +104,7 @@ var app = app || {};
           return (arti.body)
         }).reduce(function (allText, newText) {
           return allText + newText;
-        }, '').split(' ').length;
+        }, '').split(' ').length
       })})
     })
   }
