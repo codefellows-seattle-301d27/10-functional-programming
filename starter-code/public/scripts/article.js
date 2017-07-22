@@ -104,6 +104,16 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
 
+      //Done - Completed in 30 minutes
+      return {
+        name: author,
+        //number of words from that author
+        numberOfWords: Article.all.map(function(bodyText) {
+          return {
+            body: bodyText.body
+          }
+        }).split(' ').length
+      }
     })
   };
 
@@ -151,7 +161,6 @@ var app = app || {};
     .then(console.log)
     .then(callback);
   };
-  //Logic Check
   module.Article = Article;
 //end of IIFE
 })(app)
