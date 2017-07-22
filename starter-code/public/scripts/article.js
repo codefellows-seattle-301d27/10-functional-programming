@@ -72,13 +72,26 @@ var app = app || {};
 
   // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return Article.all.map().reduce()
+    return Article.all.map(function(bodyText){
+      return {
+        body: bodyText.body
+      }
+    }).reduce(function(accumulator, bodyText){
+      return accumulator + bodyText + ', ' ;
+    }).split(' ').length;
   };
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(function(article){
+      return {
+        author: article.author
+      }
+    }).reduce(function (accumulator, author) {
+      return accumulator + author + ', ';
+      //filter function based off the following solution https://stackoverflow.com/a/39272754
+    }).filter((name, index, array) => array.indexOf(name) === index);
   };
 
   Article.numWordsByAuthor = () => {
@@ -139,6 +152,6 @@ var app = app || {};
     .then(callback);
   };
   //Logic Check
-  module.newArticle = new Article();
+  module.Article = Article;
 //end of IIFE
 })(app)
