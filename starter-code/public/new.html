@@ -87,8 +87,9 @@
     <script src="scripts/articleView.js"></script>
     <!-- TODO: Due to changes in article.js and articleView.js to attach their interior objects to a global 'app' object, we need to make changes to the contents of the following <script> tag: -->
     <script>
-      Article() = app.Article;
-      app.articleView.initNewArticlePage();
+      var Article = app.Article;
+      var articleView = app.articleView;
+      articleView.initNewArticlePage();
     </script>
   </body>
 </html>
