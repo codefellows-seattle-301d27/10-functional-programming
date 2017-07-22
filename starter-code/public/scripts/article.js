@@ -48,7 +48,7 @@ var app = app || {};
     Article.all.push(new Article(ele));
   });
   */
-    Article.all.map(art => new Article(art));
+    Article.all = rows.map(art => new Article(art));
   };
 
   Article.fetchAll = callback => {
