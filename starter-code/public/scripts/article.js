@@ -67,7 +67,7 @@ var app = app || {};
   Article.numWordsAll = () => {
     // start with an array with Article.all and return and array of article bodies
     // add all arrays together
-    return (Article.all.map(function (arti) {
+    return (app.Article.all.map(function (arti) {
       return arti.body;
     })).reduce(function (allText, newText) {
       return allText + newText;
@@ -89,7 +89,7 @@ var app = app || {};
   };
 
   Article.numWordsByAuthor = () => {
-    return Article.allAuthors().map((author) => {
+    return app.Article.allAuthors().map((author) => {
       // TODO: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
@@ -153,5 +153,5 @@ var app = app || {};
     .then(console.log)
     .then(callback);
   };
-  module.Article = Article;
-})(app);
+  module = Article;
+})(app.Article);
