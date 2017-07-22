@@ -10,8 +10,13 @@
     <link rel="stylesheet" href="/styles/layout.css">
     <link rel="stylesheet" href="/styles/modules.css">
     <link rel="icon" type="image/x-icon" href="https://avatars2.githubusercontent.com/u/18607604?v=3&s=200">
-    <!-- TODO: Setup a template for each row of the Author Stats section of this page: -->
-
+    <!-- DONE: Setup a template for each row of the Author Stats section of this page: -->
+    <script id="admin-template" type="text/x-handlebars-template" >
+      <tr>
+          <td>{{author}}</td>
+          <td>{{authorUrl}}</td>
+      </tr>
+    </script>
   </head>
   <body>
     <header class="site-header clearfix">
