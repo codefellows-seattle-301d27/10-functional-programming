@@ -99,10 +99,19 @@ var app = app || {};
       // property.
       return {
         name: author.name,
-        totalWords: '0'
+        totalWords: $.get('/articles', function(data){
+          data.filter(function(article){
+            if (article.author === author.name){
+              return true;
+            } else {
+              return false;
+            }
+          }).reduce(function(accumulator, article){
+            return accumulator + article.body.split(' ').length;
+          }, 0);
+        })
       }
-
-    }).reduce()
+    })
   };
 
   Article.truncateTable = callback => {
