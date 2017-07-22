@@ -141,7 +141,8 @@ articleView.initAdminPage = function() {
   // we are then calling "template" on line 117.
   //    Estimated time:
   //    Actual time:
-
+!  var template = Handlebars.compile($('').text());
+  return template(this);
   // REVIEW: We use `forEach` here because we are relying on the side-effects of the callback function:
   // appending to the DOM.
   // The callback is not required to return anything.

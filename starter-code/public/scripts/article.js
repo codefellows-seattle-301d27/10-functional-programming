@@ -70,20 +70,36 @@ var app = app || {};
   // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   //    Estimated time: 30 minutes
   //    Actual time: 20 minutes
+  // Article.numWordsAll = () => {
+  //   return Article.all.map(function(arti){
+  //     return arti.body.length;
+  //   }).reduce(function(accumulator, bodies) {
+  //     return accumulator + bodies;
+  //   }, 0)
+  // };
+
+  // SIMPLIFIED WITH ES6 ARROW FUNCTIONS
   Article.numWordsAll = () => {
-    return Article.all.map(function(arti){
-      return arti.body.length;
-    }).reduce(function(accumulator, bodies) {
-      return accumulator + bodies;
-    }, 0)
-  };
+    return Article.all.map(arti => arti.body.length)
+      .reduce((accumulator, bodyWords) => accumulator + bodyWords);
+  }
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   //    Estimated time:
   //    Actual time:
+  // Article.allAuthors = () => {
+  //   return Article.all.map().reduce();
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(authi => authi.author)
+      .reduce((accumulator, names) => {
+        names.forEach(authName => {
+          if (accumulator.indexOf(authName) === -1) {
+            accumulator.push[authName];
+          }
+        });
+        return accumulator;
+      }, []);
   };
 
   Article.numWordsByAuthor = () => {
