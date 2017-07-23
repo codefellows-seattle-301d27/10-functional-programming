@@ -42,7 +42,7 @@ var app = app || {};
     // is the transformation of one collection into another. Remember that we can set variables equal to the result
     // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
     // There is no need to push to anything.
-    Article.all = rawData.map(function(arti) {
+    Article.all = rows.map(function(arti) {
       return new Article(arti);
     });
     /* OLD forEach():
@@ -67,10 +67,10 @@ var app = app || {};
   Article.numWordsAll = () => {
     // start with an array with Article.all and return and array of article bodies
     // add all arrays together
-    return (app.Article.all.map(function (arti) {
+    return (Article.all.map(function (arti) {
       return arti.body;
     })).reduce(function (allText, newText) {
-      return allText + newText;
+      return allText + ' ' + newText;
     }, '').split(' ').length;
   };
 
@@ -89,7 +89,7 @@ var app = app || {};
   };
 
   Article.numWordsByAuthor = () => {
-    return app.Article.allAuthors().map((author) => {
+    return Article.allAuthors().map((author) => {
       // TODO: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
@@ -98,13 +98,13 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
       return ({author: author, wordCount: (function() {
-        Article.all.filter(function(arti) {
-          return arti.author = author;
+        return(Article.all.filter(function(arti) {
+          return arti.author == author;
         }).map(function(arti) {
           return (arti.body)
         }).reduce(function (allText, newText) {
-          return allText + newText;
-        }, '').split(' ').length
+          return allText + ' ' + newText;
+        }, '').split(' ').length)
       })})
     })
   }
@@ -153,5 +153,5 @@ var app = app || {};
     .then(console.log)
     .then(callback);
   };
-  module = Article;
-})(app.Article);
+  module.Article = Article;
+})(app);
