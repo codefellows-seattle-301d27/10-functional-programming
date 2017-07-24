@@ -100,35 +100,28 @@ var app = app || {};
       }, []);
   };
 
-  // TODO: Transform each author string into an object with properties for
+  // DONE: Transform each author string into an object with properties for
   // the author's name, as well as the total number of words across all articles
   // written by the specified author.
   // HINT: This .map should be setup to return an object literal with two properties.
   // The first property should be pretty straightforward, but you will need to chain
   // some combination of filter, map, and reduce to get the value for the second
   // property.
-  //    Estimated time:
-  //    Actual time:
+  //    Estimated time: 45 minutes
+  //    Actual time: 2.5 hours
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(function(author) {
       return {
         authorName: author,
         numWords:
-        // below is an array of all the authors (not unique) and all the words in each article
-        // now need to sum the words by author,
-        //    so need to remove similar author names and accumulate their words
-          Article.all.map(function(arti) {
-            return{
-              name: arti.authors,
-              wordCount: arti.body.length
-            }
+          Article.all.filter(function(name){
+            name.author === author
           })
-            .reduce(function(accumulator, bodywords){
-            accumulator + bodywords
-          },)
-    })
-  };
+            .map(arti => arti.body.length)
+            .reduce((accumulator, bodyWords) => {accumulator + bodyWords}, [])
+    }
+  });
 
   Article.truncateTable = callback => {
     $.ajax({
@@ -143,6 +136,7 @@ var app = app || {};
 
   Article.prototype.insertRecord = function(callback) {
     // REVIEW: Why can't we use an arrow function here for .insertRecord()??
+    //    Answer: because 'this' is not specific enough for use with the arrow function
     $.post('/articles', {author: this.author, authorUrl: this.authorUrl, body: this.body, category: this.category, publishedOn: this.publishedOn, title: this.title})
     .then(console.log)
     .then(callback);
@@ -175,4 +169,4 @@ var app = app || {};
     .then(callback);
   };
   module.Article = Article;
-}(app))
+})(app);
