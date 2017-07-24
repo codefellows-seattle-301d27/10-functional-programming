@@ -49,7 +49,7 @@ var app = app || {};
   });
   */
 
-    Article.all = rawData.map(function(ele) {
+    Article.all = rows.map(function(ele) {
       return new Article(ele)
     })
   };
