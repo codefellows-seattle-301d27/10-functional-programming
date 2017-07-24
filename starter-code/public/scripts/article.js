@@ -45,17 +45,10 @@ var app = app || {};
     // is the transformation of one collection into another. Remember that we can set variables equal to the result
     // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
     // There is no need to push to anything.
-    app.Article.all = module.map(function(element){
-      return {
-        author: element.author,
-        authorUrl: element.authorUrl,
-        body: element.body,
-        category: element.category,
-        publishedOn: element.publishedOn,
-        title: element.title
-      };
+    Article.all = rows.map(function(element){
+      return new Article(element);
     });
-
+     console.log(Article.all);
   }; // End loadAll()
 
   Article.fetchAll = callback => {
@@ -70,25 +63,27 @@ var app = app || {};
 
   // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return Article.all.map(function (rawDataObj) {
-      return {
-        author: rawDataObj.author,
-        authorUrl: rawDataObj.authorUrl,
-        body: rawDataObj.body,
-        category: rawDataObj.category,
-        publishedOn: rawDataObj.publishedOn,
-        title: rawDataObj.title
-      }
+      console.log('in numWordsAll')
+    var count = Article.all.map(function(Article) {
+      console.log('in numWordsAll')
+      return Article.body.length;
     }
-  ).reduce(function (accumulator, rawDataObj) {
-    return accumulator + rawDataObj.body;
-  })
+  ).reduce(function (accumulator, value) {
+    console.log('in reduce')
+    return accumulator + value;
+  }, 0)
+    console.log(count);
+    return count;
   };
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(function(){
+      return ;
+    }).reduce(function(accumulator, value) {
+      return accumulator + value;
+    });
   };
 
   Article.numWordsByAuthor = () => {
@@ -100,6 +95,7 @@ var app = app || {};
       // The first property should be pretty straightforward, but you will need to chain
       // some combination of filter, map, and reduce to get the value for the second
       // property.
+
 
     })
   };
