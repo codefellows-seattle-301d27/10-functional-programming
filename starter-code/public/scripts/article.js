@@ -41,28 +41,22 @@ var app = app || {};
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
     // DONE: Refactor this forEach code, by using a `.map` call instead, since what we are trying to accomplish
-    // Estimated time: 20mins;
+    // Estimated time: 20mins act 60min
     // is the transformation of one collection into another. Remember that we can set variables equal to the result
     // of functions. So if we set a variable equal to the result of a .map, it will be our transformed array.
     // There is no need to push to anything.
-
-    Article.all = rawData.map(function(rawDataObj){
+    app.Article.all = module.map(function(element){
       return {
-        author: rawDataObj.author,
-        authorUrl: rawDataObj.authorUrl,
-        body: rawDataObj.body,
-        category: rawDataObj.category,
-        publishedOn: rawDataObj.publishedOn,
-        title: rawDataObj.title
-      }
-    })
-    /* OLD forEach():
-    rawData.forEach(function(ele) {
-    Article.all.push(new Article(ele));
-  });
-  */
+        author: element.author,
+        authorUrl: element.authorUrl,
+        body: element.body,
+        category: element.category,
+        publishedOn: element.publishedOn,
+        title: element.title
+      };
+    });
 
-  };
+  }; // End loadAll()
 
   Article.fetchAll = callback => {
     $.get('/articles')
