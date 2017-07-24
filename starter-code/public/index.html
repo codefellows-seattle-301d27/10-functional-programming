@@ -90,7 +90,9 @@
     to the contents of the following <script> tag:
     est 5min act 10min -->
     <script>
-      app.articleView.initAdminPage();
+      // app.articleView.initAdminPage();
+      
+      app.Article.fetchAll(app.articleView.initIndexPage);
     </script>
   </body>
 </html>
