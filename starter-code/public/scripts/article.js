@@ -109,7 +109,7 @@ var app = app || {};
         }).map(function(article) {
           return article.body;
         }).reduce(function (accumulator, body) {
-          return body.split(' ').length
+          return accumulator + body.split(' ').length
         },0)
       }
     })
