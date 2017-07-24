@@ -49,7 +49,7 @@ var app = app || {};
   });
   */
 
-    Article.all = rawData.map(function(ele) {
+    Article.all = rows.map(function(ele) {
       return new Article(ele)
     })
   };
@@ -76,12 +76,12 @@ var app = app || {};
   // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map(function(author){
-      return author.name;
+    return Article.all.map(function(article){
+      return article.author;
     }).reduce(function(accumulator, author){
-      if (accumulator.includes(author)){
-        accumulator.push(author);
-        return accumulator;
+      if (!accumulator.includes(author)){
+        accumulator.push(author)
+        return accumulator
       } else {
         return accumulator;
       }
@@ -98,18 +98,19 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
       return {
-        name: author.name,
-        totalWords: $.get('/articles', function(data){
-          data.filter(function(article){
-            if (article.author === author.name){
-              return true;
-            } else {
-              return false;
-            }
-          }).reduce(function(accumulator, article){
-            return accumulator + article.body.split(' ').length;
-          }, 0);
-        })
+        name: author,
+        totalWords: Article.all.filter(function(article) {
+          if (article.author === author) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }).map(function(article) {
+          return article.body;
+        }).reduce(function (accumulator, body) {
+          return body.split(' ').length
+        },0)
       }
     })
   };
