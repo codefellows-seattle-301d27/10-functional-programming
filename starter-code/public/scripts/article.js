@@ -98,18 +98,19 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
       return {
-        name: author.name,
-        totalWords: $.get('/articles', function(data){
-          data.filter(function(article){
-            if (article.author === author.name){
-              return true;
-            } else {
-              return false;
-            }
-          }).reduce(function(accumulator, article){
-            return accumulator + article.body.split(' ').length;
-          }, 0);
-        })
+        name: author,
+        totalWords: Article.all.filter(function(article) {
+          if (article.author === author) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }).map(function(article) {
+          return article.body;
+        }).reduce(function (accumulator, body) {
+          return body.split(' ').length
+        },0)
       }
     })
   };
