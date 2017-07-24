@@ -62,39 +62,15 @@ var app = app || {};
   };
 
   // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
-  // Article.numWordsAll = () => {
-  //   console.log('in numWordsAll1')
-  //   var length = rows.map(function(article) {
-  //     console.log('in numWordsAll2')
-  //     return article.body;
-  //   }
-  // ).reduce(function (accumulator, value) {
-  //   console.log('in reduce')
-  //   return accumulator + value.length;
-  // }, 0)
-  //   console.log(length);
-  //   // return count;
-  // };
 
   Article.numWordsAll = () => {
-    console.log('in numWordsAll1')
-    var count = Article.all.map(function(article){
-      return article.body.length;
-    }
-  ).reduce(function(accumulator,body){
-    console.log('in reduce')
-    return accumulator + 
-  }
-    var length = rows.map(function(article) {
-      console.log('in numWordsAll2')
+    let count = Article.all.map(function(article){
       return article.body;
-    }
-  ).reduce(function (accumulator, value) {
-    console.log('in reduce')
-    return accumulator + value.length;
-  }, 0)
-    console.log(length);
-    // return count;
+    }).reduce(function(accumulator, body){
+      // console.log(accumulator + body.split(' ').length)
+      return (accumulator + body.split(' ').length);
+    }, 0)
+    return count;
   };
 
 
