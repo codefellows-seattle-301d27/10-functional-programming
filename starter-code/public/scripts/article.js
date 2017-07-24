@@ -67,7 +67,7 @@ var app = app || {};
     )
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
+  // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   //    Estimated time: 30 minutes
   //    Actual time: 20 minutes
   // Article.numWordsAll = () => {
@@ -84,12 +84,10 @@ var app = app || {};
       .reduce((accumulator, bodyWords) => accumulator + bodyWords);
   }
 
-  // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
+  // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
-  //    Estimated time:
-  //    Actual time:
-  // Article.allAuthors = () => {
-  //   return Article.all.map().reduce();
+  //    Estimated time: 30 minutes
+  //    Actual time: 10 minutes
   Article.allAuthors = () => {
     return Article.all.map(authi => authi.author)
       .reduce((accumulator, names) => {
@@ -102,17 +100,33 @@ var app = app || {};
       }, []);
   };
 
+  // TODO: Transform each author string into an object with properties for
+  // the author's name, as well as the total number of words across all articles
+  // written by the specified author.
+  // HINT: This .map should be setup to return an object literal with two properties.
+  // The first property should be pretty straightforward, but you will need to chain
+  // some combination of filter, map, and reduce to get the value for the second
+  // property.
+  //    Estimated time:
+  //    Actual time:
+
   Article.numWordsByAuthor = () => {
-    return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for
-      // the author's name, as well as the total number of words across all articles
-      // written by the specified author.
-      // HINT: This .map should be setup to return an object literal with two properties.
-      // The first property should be pretty straightforward, but you will need to chain
-      // some combination of filter, map, and reduce to get the value for the second
-      // property.
-      //    Estimated time:
-      //    Actual time:
+    return Article.allAuthors().map(function(author) {
+      return {
+        authorName: author,
+        numWords:
+        // below is an array of all the authors (not unique) and all the words in each article
+        // now need to sum the words by author,
+        //    so need to remove similar author names and accumulate their words
+          Article.all.map(function(arti) {
+            return{
+              name: arti.authors,
+              wordCount: arti.body.length
+            }
+          })
+            .reduce(function(accumulator, bodywords){
+            accumulator + bodywords
+          },)
     })
   };
 
