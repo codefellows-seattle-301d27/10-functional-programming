@@ -118,8 +118,9 @@ var app = app || {};
           })
             .map(arti => arti.body.length)
             .reduce((accumulator, bodyWords) => {accumulator + bodyWords}, [])
-    }
-  });
+      }
+    });
+  }
 
   Article.truncateTable = callback => {
     $.ajax({
