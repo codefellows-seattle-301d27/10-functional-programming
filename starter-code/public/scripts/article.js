@@ -22,6 +22,8 @@ var app = app || {};
     lexical arrows, "this" inside the function will still be the same "this" as it was outside
     the function.
     As a result, we no longer have to pass in the optional "this" argument to forEach!*/
+
+    // operating on *an array*
     Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
   }
 
@@ -71,18 +73,16 @@ var app = app || {};
     return count;
   };
 
-
-
   // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map(function(article){
-      return article.author;
-    }).reduce(function(accumulator, author) {
-      console.log(accumulator + author.split());
-      return accumulator + author.split();
+    return Article.all.map(article => article.author).reduce((accumulator, author) => {
+      if (!accumulator.includes(author)) (
+       accumulator.push(author) )
+      return accumulator;
     }, [])
   };
+
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
@@ -94,7 +94,12 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
 
-
+      return {
+        authorName: author,
+        wordCount: Article.all.filter(element => author === element.author)
+        .map(element => element.body.split(' ').length)
+        .reduce((accumulator, author) => accumulator + author)
+      }
     })
   };
 
