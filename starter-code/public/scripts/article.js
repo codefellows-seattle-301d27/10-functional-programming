@@ -46,9 +46,7 @@ var app = app || {};
     // There is no need to push to anything.
     //    Estimated time: 7 minutes
     //    Actual time: 8 minutes
-    Article.all = rows.map(function(ele) {
-      return new Article(ele);
-    })
+    Article.all = rows.map(ele => new Article(ele));
     /* OLD forEach():
     rawData.forEach(function(ele) {
     Article.all.push(new Article(ele));
