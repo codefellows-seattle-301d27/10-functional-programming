@@ -63,18 +63,22 @@ var app = app || {};
 
   // TODO: DONE Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return Article.all.map(ele => ele.body.split(' ').length).reduce((total, len) => {total + len}, 0)
+    return Article.all.map(ele => ele.body.split(' ').length).reduce((total, len) => {return total + len}, 0)
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
+  // TODO: DONE Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(ele => {return ele.author;}).reduce((auts, aut) => {
+      if (auts.includes(aut)) return auts;
+      auts.push(aut);
+      return auts;
+    }, []);
   };
 
   Article.numWordsByAuthor = () => {
-    return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for
+    return Article.allAuthors().map(author => {return {author: author, words: Article.all.filter(article => {return article.author === author;}).map(article => {return article.body.split(' ').length}).reduce((total, len) => {return total + len}, 0)}
+      // TODO: DONE Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
       // HINT: This .map should be setup to return an object literal with two properties.

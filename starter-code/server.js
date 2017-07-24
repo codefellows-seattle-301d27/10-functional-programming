@@ -5,10 +5,11 @@ const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 const app = express();
-const conString = 'postgres://localhost:5432/kilovolt';
-// const conString = `postgres://postgres:${process.env.PG_PASSWORD}@localhost:5432/kilovolt`; // TODO: DONE Don't forget to set your own conString
+// TODO: DONE Don't forget to set your own conString
+// const conString = 'postgres://localhost:5432/kilovolt';
+const conString = `postgres://postgres:${process.env.PG_PASSWORD}@localhost:5432/kilovolt`;
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', function(err) {
