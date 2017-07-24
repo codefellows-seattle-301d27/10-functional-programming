@@ -15,7 +15,7 @@
       Estimated time: 15 minutes
       Actual time: 15 minutes
     -->
-    <script id="article-template" type="text/x-handlebars-template">
+    <script id="admin-template" type="text/x-handlebars-template">
       <article class="clearfix">
         <li>{{authorName}}: </li>
         <li>{{numWords}} words</li>
@@ -68,8 +68,7 @@
       // Let's pass in a callback function, to determine what happens AFTER all articles are loaded.
       //    Estimated time: 5 minutes
       //    Actual time: 2 minutes
-      app.Article.fetchAll();
-      app.articleView.initAdminPage();
+      app.Article.fetchAll(app.articleView.initAdminPage);
     </script>
   </body>
 </html>

@@ -78,7 +78,7 @@ var app = app || {};
 
   // SIMPLIFIED WITH ES6 ARROW FUNCTIONS
   Article.numWordsAll = () => {
-    return Article.all.map(arti => arti.body.length)
+    return Article.all.map(arti => arti.body.split(' ').length)
       .reduce((accumulator, bodyWords) => accumulator + bodyWords);
   }
 
@@ -89,11 +89,7 @@ var app = app || {};
   Article.allAuthors = () => {
     return Article.all.map(authi => authi.author)
       .reduce((accumulator, names) => {
-        names.forEach(authName => {
-          if (accumulator.indexOf(authName) === -1) {
-            accumulator.push[authName];
-          }
-        });
+        if (accumulator.indexOf(names) === -1) accumulator.push(names);
         return accumulator;
       }, []);
   };
@@ -113,11 +109,10 @@ var app = app || {};
       return {
         authorName: author,
         numWords:
-          Article.all.filter(function(name){
-            name.author === author
-          })
-            .map(arti => arti.body.length)
-            .reduce((accumulator, bodyWords) => {accumulator + bodyWords}, [])
+          Article.all
+            .filter(name => name.author === author)
+            .map(arti => arti.body.split(' ').length)
+            .reduce((accumulator, bodyWords) => accumulator + bodyWords)
       }
     });
   }
