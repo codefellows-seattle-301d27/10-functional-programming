@@ -29,7 +29,6 @@ app.get('/articles', (request, response) => {
       ON articles.author_id=authors.author_id;`
   )
   .then(result => response.send(result.rows))
-  .then(console.log('hey!')) //remove
   .catch(console.error);
 });
 
