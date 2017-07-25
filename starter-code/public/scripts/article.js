@@ -67,7 +67,6 @@ var app = app || {};
     let count = Article.all.map(function(article){
       return article.body;
     }).reduce(function(accumulator, body){
-      // console.log(accumulator + body.split(' ').length)
       return (accumulator + body.split(' ').length);
     }, 0)
     return count;
