@@ -2,7 +2,9 @@
 var app = app || {};
 
 // REVIEW: Check out all of the functions that we've cleaned up with arrow function syntax.
-
+(function (module) {
+  //
+}) (app)
 // TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
@@ -48,7 +50,9 @@ Article.loadAll = rows => {
 });
 */
   Article.all = rows.map(article => new Article(article));
-
+  // Article.all = rows.map(ele => {
+  //   return new Article(ele))
+  // }
 };
 
 Article.fetchAll = callback => {
@@ -63,23 +67,42 @@ Article.fetchAll = callback => {
 
 // DONE: took 30 min; Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = () => {
-  return Article.all.map(
-    article => article.body.split(' ').length
-  ).reduce((accumulator, wordNum) => accumulator + wordNum, 0)
+  return Article.all
+    .map(article => article.body.split(' ').length)
+    .reduce((accumulator, wordNum) => accumulator + wordNum, 0)
 };
+
+// In class:
+// Article.numWordsAll = () => {
+//   return Article.all
+//   .map(article => article.body.split(' ').length)
+//   .reduce((acc, curr) => acc + curr, 0)
+// }
 
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
 // probably need to use the optional accumulator argument in your reduce call.
 Article.allAuthors = () => {
-  return Object.keys(Article.all.map(article => article.author)
-  .reduce(
-    (accumulator, author) => {
-      accumulator[author] = 'present';
-      return accumulator;
-    },
+  return Object.keys(Article.all
+    .map(article => article.author)
+    .reduce(
+      (accumulator, author) => {
+        accumulator[author] = 'present';
+        return accumulator;
+      },
     {}
   ));
 };
+
+// In class:
+// Article.allAuthors = () => {
+//   return Object.keys(Article.all
+//     .map(article => article.author)
+//     .reduce((acc, curr) => {
+//       if (!acc.includes(curr)) acc.push(curr)
+//       return acc
+//     }, [])
+//   )
+// };
 
 Article.numWordsByAuthor = () => {
   return Article.allAuthors().map(author => {
@@ -91,6 +114,14 @@ Article.numWordsByAuthor = () => {
     // some combination of filter, map, and reduce to get the value for the second
     // property.
 
+    // in class (through line 123):
+    // return {
+    //   authorName: author,
+    //   wordCount: Article.all
+    //     .filter(ele => author === article.author)
+    //     .map(ele => ele.body.split(' ').length)
+    //     .reduce((acc, curr) => acc + curr)
+    // }
   })
 };
 
