@@ -52,17 +52,18 @@ var app = app || {};
     Article.all = rows.map(function(articleObj) {
       new Article(articleObj);
     });
-
-    Article.fetchAll = callback => {
-      $.get('/articles')
-        .then(
-          results => {
-            Article.loadAll(results);
-            callback();
-          }
-        )
-    };
   }
+
+  Article.fetchAll = callback => {
+    $.get('/articles')
+      .then(
+        results => {
+          Article.loadAll(results);
+          callback();
+        }
+      )
+  };
+
 
   // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   // estimate: 20 min, actual: 10 min
