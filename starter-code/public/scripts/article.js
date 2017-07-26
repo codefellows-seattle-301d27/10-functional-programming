@@ -49,58 +49,49 @@ var app = app || {};
     Article.all.push(new Article(ele));
   });
   */
-    rows.map(function(row) {
-      return {
-        title: row.title,
-        category: row.category,
-        author: row.author,
-        authorUrl: row.authorUrl,
-        publishedOn: row.publishedOn,
-        body: row.body
-      }
+    Article.all = rows.map(function(articleObj) {
+      new Article(articleObj);
     });
-  };
 
-  Article.fetchAll = callback => {
-    $.get('/articles')
-      .then(
-        results => {
-          Article.loadAll(results);
-          callback();
-        }
-      )
-  };
+    Article.fetchAll = callback => {
+      $.get('/articles')
+        .then(
+          results => {
+            Article.loadAll(results);
+            callback();
+          }
+        )
+    };
+  }
 
-  // Done: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
+  // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   // estimate: 20 min, actual: 10 min
   Article.numWordsAll = () => {
     return Article.all.map(function(article) {
       var words = article.body.split(' ');
-      return words;
-    }).reduce(
-      function(words) {
-        return words.length;
-      })
-  };
+      return words.length;
+    }).reduce(function(accumulator, current) {
+      return accumulator + current;
+    });
+  }
 
   // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   // Estimated 30 minutes | Actual 25 minutes
   Article.allAuthors = () => {
-    var newArr = [];
     return Article.all.map(function(article) {
       return article.author;
-    }).reduce(function(authors) {
-      if (newArr.includes(authors)) {
-        newArr.push(authors);
+    }).reduce(function(accumulator, current) {
+      if (!accumulator.includes(current)) {
+        accumulator.push(current);
       }
-      return newArr;
+      return accumulator;
     });
   };
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for
+      // DONE: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
       // HINT: This .map should be setup to return an object literal with two properties.
@@ -108,21 +99,18 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
       // Estimated 1 hour | Actual
-      var numWords = Article.all().filter(function(author) {
-        Article.author = author;
-      }).map(function(article) {
-        var words = article.body.split(' ');
-        return words;
-      }).reduce(
-        function(words) {
-          return words.length;
-        })
-
-      var authorObj = {
-        author: author,
-        numWords: numWords
-      }
-      return authorObj;
+      var wordCountObj = {
+        authorName: author,
+        wordCount: Article.all
+          .filter(function(eachArticle) {
+            return author === eachArticle.author;
+          }).map(function(eachArticle) {
+            return eachArticle.body.split(' ').length;
+          }).reduce(function(accumulator, current) {
+            return current + accumulator;
+          })
+      };
+      return wordCountObj;
     })
   };
 

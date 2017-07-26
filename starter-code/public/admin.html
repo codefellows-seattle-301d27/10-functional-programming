@@ -15,7 +15,7 @@
     <script id="author-stats-template" type="text/x-handlebars-template">
       <div>
         <h1 id="author-name">{{author}}</h1>
-        <p id="word-count">{{word-count}}</p>
+        <p id="word-count">{{wordCount}}</p>
     </script>
   </head>
   <body>
@@ -57,10 +57,9 @@
     <!-- DONE: Due to changes in article.js and articleView.js to attach their interior objects to a global 'app' object, we need to make changes to the contents of the following <script> tag: -->
     <!-- Estimate 10 min |  Actual 7 min-->
     <script>
-      // ????: After we fetch and load all the articles, what view function do we want to run next?
+      // DONE: After we fetch and load all the articles, what view function do we want to run next?
       // Let's pass in a callback function, to determine what happens AFTER all articles are loaded.
-      Article.fetchAll();
-      articleView.initAdminPage();
+      app.Article.fetchAll(app.articleView.initAdminPage);
     </script>
   </body>
 </html>
