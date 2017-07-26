@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const conString = `postgres://postgres:${process.env.PG_PASSWORD}@localhost:5432/kilovolt`;
-// const conString = ''; // TODO: Don't forget to set your own conString
+// const conString = '';
+// DONE: Don't forget to set your own conString
+// estimate 5 min, actual 2 min
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', function(err) {
