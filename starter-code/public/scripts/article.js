@@ -5,7 +5,7 @@ var app = app || {};
 (function (module) {
   //
 }) (app)
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
+// TODONE: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object that is defined above.
@@ -79,7 +79,7 @@ Article.numWordsAll = () => {
 //   .reduce((acc, curr) => acc + curr, 0)
 // }
 
-// TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
+// TODONE: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
 // probably need to use the optional accumulator argument in your reduce call.
 Article.allAuthors = () => {
   return Object.keys(Article.all
@@ -115,13 +115,13 @@ Article.numWordsByAuthor = () => {
     // property.
 
     // in class (through line 123):
-    // return {
-    //   authorName: author,
-    //   wordCount: Article.all
-    //     .filter(ele => author === article.author)
-    //     .map(ele => ele.body.split(' ').length)
-    //     .reduce((acc, curr) => acc + curr)
-    // }
+    return {
+      authorName: author,
+      wordCount: Article.all
+        .filter(ele => author === article.author)
+        .map(ele => ele.body.split(' ').length)
+        .reduce((acc, curr) => acc + curr)
+    }
   })
 };
 
