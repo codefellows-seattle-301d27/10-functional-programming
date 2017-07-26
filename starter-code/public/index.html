@@ -88,8 +88,7 @@
     <!-- DONE: Due to changes in article.js and articleView.js to attach their interior objects to a global 'app' object, we need to make changes to the contents of the following <script> tag: -->
     <!-- Estimated 5 min | Actual 2 min -->
     <script>
-      articleView.initIndexPage();
-      Article.fetchAll();
+      app.Article.fetchAll(app.articleView.initIndexPage);
     </script>
   </body>
 </html>
