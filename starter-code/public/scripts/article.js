@@ -1,3 +1,5 @@
+// This was modeled after 301d27 Day 11 Code
+
 'use strict';
 var app = app || {};
 
