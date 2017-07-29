@@ -94,7 +94,7 @@ var app = app || {};
     var article;
     $('#articles').empty();
 
-    article = new Article({
+    article = new app.Article({
       title: $('#article-title').val(),
       author: $('#article-author').val(),
       authorUrl: $('#article-author-url').val(),
@@ -109,7 +109,7 @@ var app = app || {};
 
   articleView.submit = function(event) {
     event.preventDefault();
-    let article = new Article({
+    let article = new app.Article({
       title: $('#article-title').val(),
       author: $('#article-author').val(),
       authorUrl: $('#article-author-url').val(),
@@ -139,7 +139,7 @@ var app = app || {};
     // we are then calling "template" on line 117.
     // estimate 5 min, actual 2 min
 
-    var template = Handlebars.compile($('#admin-template').text());
+    var template = Handlebars.compile($('#author-stats-template').text());
 
     // REVIEW: We use `forEach` here because we are relying on the side-effects of the callback function:
     // appending to the DOM.
