@@ -80,14 +80,13 @@ var app = app || {};
   // probably need to use the optional accumulator argument in your reduce call.
   // Estimated 30 minutes | Actual 25 minutes
   Article.allAuthors = () => {
-    return Article.all.map(function(article) {
-      return article.author;
-    }).reduce(function(accumulator, current) {
+    return Article.all.map(article => article.author)
+    .reduce((accumulator, current) => {
       if (!accumulator.includes(current)) {
         accumulator.push(current);
       }
       return accumulator;
-    });
+    }, [])
   };
 
   Article.numWordsByAuthor = () => {
@@ -100,18 +99,13 @@ var app = app || {};
       // some combination of filter, map, and reduce to get the value for the second
       // property.
       // Estimated 1 hour | Actual
-      var wordCountObj = {
+      return {
         authorName: author,
         wordCount: Article.all
-          .filter(function(eachArticle) {
-            return author === eachArticle.author;
-          }).map(function(eachArticle) {
-            return eachArticle.body.split(' ').length;
-          }).reduce(function(accumulator, current) {
-            return current + accumulator;
-          })
-      };
-      return wordCountObj;
+          .filter(eachArticle => author === eachArticle.author)
+          .map(eachArticle => eachArticle.body.split(' ').length)
+          .reduce((accumulator, current) => accumulator + current)
+      }
     })
   };
 
