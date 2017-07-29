@@ -139,7 +139,7 @@ var app = app || {};
     // we are then calling "template" on line 117.
     // estimate 5 min, actual 2 min
 
-    var template = Handlebars.compile($('#admin-template').text());
+    var template = Handlebars.compile($('#author-stats-template').text());
 
     // REVIEW: We use `forEach` here because we are relying on the side-effects of the callback function:
     // appending to the DOM.
