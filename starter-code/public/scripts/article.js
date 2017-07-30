@@ -92,20 +92,9 @@ var app = app || {};
     ));
   };
 
-  // In class:
-  // Article.allAuthors = () => {
-  //   return Object.keys(Article.all
-  //     .map(article => article.author)
-  //     .reduce((acc, curr) => {
-  //       if (!acc.includes(curr)) acc.push(curr)
-  //       return acc
-  //     }, [])
-  //   )
-  // };
-
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for
+      // TODONE: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
       // HINT: This .map should be setup to return an object literal with two properties.
@@ -117,9 +106,9 @@ var app = app || {};
       return {
         authorName: author,
         wordCount: Article.all
-          .filter(ele => ele.author === author)
-          .map(ele => ele.body.split(' ').length)
-          .reduce((acc, curr) => acc + curr)
+          .filter(element => element.author === author)
+          .map(element => element.body.split(' ').length)
+          .reduce((accumulator, element) => accumulator + element)
       }
     })
   };
