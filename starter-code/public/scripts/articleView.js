@@ -139,7 +139,7 @@ var app = app || {};
   // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since
   // we are then calling "template" on line 117.
 
-  // let template = Handlebars.compile($('#admin-template').text)
+  let template = Handlebars.compile($('#author-stats-template').text)
 
   // REVIEW: We use `forEach` here because we are relying on the side-effects of the callback function:
   // appending to the DOM.
@@ -151,5 +151,5 @@ var app = app || {};
     $('#blog-stats .words').text(app.Article.numWordsAll());
   };
 
-  module.Article = Article;
+  module.articleView = articleView;
 }) (app)
